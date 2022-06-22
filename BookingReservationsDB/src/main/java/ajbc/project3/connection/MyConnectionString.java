@@ -18,7 +18,7 @@ public class MyConnectionString
 
 	public static ConnectionString uri() 
 	{
-		
+
 		Logger root = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
 		root.setLevel(Level.ERROR);
 		
