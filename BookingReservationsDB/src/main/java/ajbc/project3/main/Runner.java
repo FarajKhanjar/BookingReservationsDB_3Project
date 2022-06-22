@@ -99,8 +99,8 @@ public class Runner
 		
 		
 		//--------------[Q3: check if a hotel(id) has an available room in a specific date]-------------//
-		//OrdersDAO ordersDao = new OrdersDAO(DB);
-		//checkAvailableHotel(ordersDao);
+		OrdersDAO ordersDao = new OrdersDAO(DB);
+		checkAvailableHotel(ordersDao);
 		
 		
 		//------------------------------------[Q5: cancel an order]-------------------------------------//
@@ -127,6 +127,7 @@ public class Runner
 		//LocalDate specificDate = LocalDate.of(2024, 10, 4);
 		//LocalDate specificDate = LocalDate.of(2024, 10, 6);    //false case
 		//LocalDate specificDate = LocalDate.of(2024, 10, 7);    //false case
+		//LocalDate specificDate = LocalDate.of(2020, 8, 12);    //false case
 
 		int numOfPeopleInRoom = 3;
 		int numOfNights = 2;
@@ -134,7 +135,7 @@ public class Runner
 		if(resultOfcheck)
 			System.out.println(resultOfcheck+"! you are welcome to order :)");
 		else
-			System.out.println(resultOfcheck+"! sorry we dont have a avalabile room in this date, please check another!");
+			System.out.println(resultOfcheck+"! we dont have a avalabile room in this details, please check another!");
 	
 	}
 }

@@ -8,6 +8,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.InsertManyResult;
 import org.bson.Document;
 
+import ajbc.project3.models.Address;
 import ajbc.project3.models.Hotel;
 import ajbc.project3.models.Room;
 import ajbc.project3.models.Hotel.HotelName;
@@ -16,8 +17,10 @@ public class HotelsDB {
 
 	public static List<ArrayList<Room>> listOfRoomsLists;
 	public static List<Hotel> hotels;
+	private static AddressDB addressList;
 
 	public HotelsDB() {
+		addressList=new AddressDB();
 		listOfRoomsLists = new ArrayList<ArrayList<Room>>();
 		initListOfHermosoRooms();
 		initListOfLindoRooms();

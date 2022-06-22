@@ -88,6 +88,11 @@ public class OrdersDAO {
 		Hotel currentHotel = hotelDao.getHotelById(hotelId);
 		LocalDate orderDate=date;
 
+		if(date.isBefore(LocalDate.now())) {
+			System.out.println("Error Date");
+			return false;
+		}
+		
 		int maxNumPeople;
 		int numRooms;
 		if(currentHotel.getName()==HotelName.HERMOSO) {
@@ -100,8 +105,12 @@ public class OrdersDAO {
 			maxNumPeople=4; numRooms=3;
 		}
 		
-		if (numPeople > maxNumPeople)
-			return false;
+		if (numPeople > maxNumPeople) {
+			System.out.println("Unfortunately number of people is large then the maximum in each room"
+					+ "\nyou can split the rooms by another order/s.");
+			return false;		
+		}
+			
 		
 		List<Order> orders = currentHotel.getOrders();
 		int roomsAvailableCounter = numRooms;
@@ -136,7 +145,6 @@ public class OrdersDAO {
 
 		}
 		System.out.println("\nOrder Between: "+orderDate+" -> "+orderDate.plusDays(numNights));
-
 		return roomsAvailableCounter > 0;
 	}
 	
