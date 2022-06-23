@@ -44,8 +44,8 @@ public class HotelsDAO {
 	
 	public Hotel getHotelById(ObjectId id)
 	{
-		Hotel current = hotels.find(Filters.eq("_id",id)).first();
-		return current;
+		Hotel currentHotel = hotels.find(Filters.eq("_id",id)).first();
+		return currentHotel;
 	}
 	
 	public List<Hotel> getHotelsByCity(String city)

@@ -60,8 +60,9 @@ public class OrdersDB {
 		Order order_11 = new Order(hotels.get(7), customers.get(5), LocalDate.now()
 				,LocalDate.of(2024, 10, 7), 3, 4, 0, true);
 
-		/*
+		
 		OrdersDAO ordersDao = new OrdersDAO(DB);
+		/*
 		ordersDao.createNewOrder(order_1);
 		ordersDao.createNewOrder(order_2);
 		ordersDao.createNewOrder(order_3);
@@ -83,12 +84,20 @@ public class OrdersDB {
 				,LocalDate.of(2022, 9, 25), 3, 4, 1, false);
 		ordersDao.createNewOrder(notApprovedOrder_1);
 		*/
+	
 		
 		//(2) Not available room because of a out-of-service date.	
 		/*
 		Order notApprovedOrder_2 = new Order(hotels.get(7), customers.get(0), LocalDate.now()
 				,LocalDate.of(2024, 10, 7), 2, 4, 1, true);
 		ordersDao.createNewOrder(notApprovedOrder_2);
+		*/
+		
+		//(3) available Order
+		/*
+		Order order_12 = new Order(hotels.get(0), customers.get(1), LocalDate.now()
+				,LocalDate.of(2022, 11, 30), 5, 2, 1, true);
+		ordersDao.createNewOrder(order_12);
 		*/
 		
 		

@@ -44,23 +44,20 @@ public class OrdersDAO {
 	
 	public List<Order> getOrdersByCustomer(ObjectId customerId)
 	{
-		List<Order> custOrders = orders.find(Filters.eq("customer_id", customerId)).into(new ArrayList<>());
-		return custOrders;
+		List<Order> currentOrders = orders.find(Filters.eq("customer_id", customerId)).into(new ArrayList<>());
+		return currentOrders;
 	}
 	
 	public List<Order> getOrdersByHotel(ObjectId hotelId)
 	{
-		List<Order> custOrders = orders.find(Filters.eq("hotel_id", hotelId)).into(new ArrayList<>());
-		return custOrders;
+		List<Order> currentOrders = orders.find(Filters.eq("hotel_id", hotelId)).into(new ArrayList<>());
+		return currentOrders;
 	}
 	
 	public InsertOneResult createNewOrder(Order newOrder)
 	{
 		InsertOneResult addResult = null;
 		Hotel currentHotel = hotelDao.getHotelById(newOrder.getHotelId());
-		
-		//System.out.println(newOrder);
-		//System.out.println(currentHotel);
 		
 		if (checkIfHotelAvailable(newOrder.getHotelId(), newOrder.getStartDate(), newOrder.getNumPeople(), newOrder.getNumNights()))
 		{
@@ -93,19 +90,19 @@ public class OrdersDAO {
 			return false;
 		}
 		
-		int maxNumPeople;
-		int numRooms;
+		int maxNumPeopleInRoom;
+		int numRoomsInHotel;
 		if(currentHotel.getName()==HotelName.HERMOSO) {
-			maxNumPeople=2; numRooms=4;
+			maxNumPeopleInRoom=2; numRoomsInHotel=4;
 		}
 		else if(currentHotel.getName()==HotelName.BELLO) {
-			maxNumPeople=3; numRooms=2;
+			maxNumPeopleInRoom=3; numRoomsInHotel=2;
 		}
 		else {
-			maxNumPeople=4; numRooms=3;
+			maxNumPeopleInRoom=4; numRoomsInHotel=3;
 		}
 		
-		if (numPeople > maxNumPeople) {
+		if (numPeople > maxNumPeopleInRoom) {
 			System.out.println("Unfortunately number of people is large then the maximum in each room"
 					+ "\nyou can split the rooms by another order/s.");
 			return false;		
@@ -113,9 +110,9 @@ public class OrdersDAO {
 			
 		
 		List<Order> orders = currentHotel.getOrders();
-		int roomsAvailableCounter = numRooms;
+		int roomsAvailableCounter = numRoomsInHotel;
 		
-		System.out.println("Number of rooms in "+currentHotel.getName()+" hotel - "+currentHotel.getAddress().getCity()+": "+numRooms);
+		System.out.println("Number of rooms in "+currentHotel.getName()+" hotel - "+currentHotel.getAddress().getCity()+": "+numRoomsInHotel);
 		orders.forEach(System.out::println);
 		
 		for (Order oneOrder: orders)

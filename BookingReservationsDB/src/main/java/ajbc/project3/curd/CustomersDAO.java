@@ -29,8 +29,20 @@ public class CustomersDAO {
 	
 	public Customer getCustomerById(ObjectId id)
 	{
-		Customer current =  customers.find(Filters.eq("_id",id)).first();
-		return current;
+		Customer currentCustomer =  customers.find(Filters.eq("_id",id)).first();
+		return currentCustomer;
+	}
+	
+	public List<Customer> getCustomerByCountry(String country)
+	{
+		List<Customer> customerByCountry =  customers.find(Filters.eq("country",country)).into(new ArrayList<>());
+		return customerByCountry;
+	}
+	
+	public List<Customer> getTouristsCustomer(String country)
+	{
+		List<Customer> customerTourists =  customers.find(Filters.ne("country",country)).into(new ArrayList<>());
+		return customerTourists;
 	}
 
 }

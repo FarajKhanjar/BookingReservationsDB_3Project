@@ -69,20 +69,31 @@ public class Runner
 		//orderssDb.createCollectionOfOrders(DB);
 		
 		
-		//handle: get all hotels
+		//Query: get all hotels
 		//HotelsDAO hotelsDao = new HotelsDAO(DB);
 		//List<Hotel> allHotels = hotelsDao.getAllHotels();
 		//allHotels.forEach(System.out::println);
 		
-		//handle: get all customers
+		//Query: get all customers
 		//CustomersDAO customersDao = new CustomersDAO(DB);
 		//List<Customer> allcustomers = customersDao.getAllCustomers();
 		//allcustomers.forEach(System.out::println);
 		
-		//handle: get all orders of a hotel by id
+		//Query: get all orders of a hotel by id
 		//OrdersDAO ordersDao = new OrdersDAO(DB);
 		//List<Order> myOrders = ordersDao.getOrdersByHotel(new ObjectId("62b2b88164bce809bbd6348a"));
 		//myOrders.forEach(System.out::println);
+		
+		//Query: get customers by a country
+		//CustomersDAO customersDao = new CustomersDAO(DB);
+		//List<Customer> customersFromCountry = customersDao.getCustomerByCountry("England");
+		//customersFromCountry.forEach(System.out::println);
+		
+		//Query: get customers that they are tourists. (Not from Israel)
+		//CustomersDAO customersDao = new CustomersDAO(DB);
+		//List<Customer> touristsCustomers = customersDao.getTouristsCustomer("Israel");
+		//touristsCustomers.forEach(System.out::println);
+		
 
 		
 
@@ -94,18 +105,17 @@ public class Runner
 		
 		//----------------------------[Q2: find hotels by a city name]----------------------------------//
 		//HotelsDAO hotelsDao = new HotelsDAO(DB);
-		//List<Hotel> hotelsByCity = hotelsDao.getHotelsByCity("London");
-		//hotelsByCity.forEach(System.out::println);
+		//getHotelsInCity(hotelsDao);
 		
 		
 		//--------------[Q3: check if a hotel(id) has an available room in a specific date]-------------//
-		OrdersDAO ordersDao = new OrdersDAO(DB);
-		checkAvailableHotel(ordersDao);
+		//OrdersDAO ordersDao = new OrdersDAO(DB);
+		//checkAvailableHotel(ordersDao);
 		
 		
 		//------------------------------------[Q5: cancel an order]-------------------------------------//
 		//OrdersDAO ordersDao = new OrdersDAO(DB);
-		//ordersDao.cancelAnOrder(new ObjectId("62b30c20c167d06dda30a3ea"));
+		//ordersDao.cancelAnOrder(new ObjectId("62b3955475d33b313649bf0d"));
 		
 		
 		//-----------------[Q6: sort the hotels by total income from orders (descending)]---------------//
@@ -125,17 +135,29 @@ public class Runner
 		LocalDate specificDate = LocalDate.of(2023, 5, 5);
 		//LocalDate specificDate = LocalDate.of(2024, 10, 10);
 		//LocalDate specificDate = LocalDate.of(2024, 10, 4);
-		//LocalDate specificDate = LocalDate.of(2024, 10, 6);    //false case
-		//LocalDate specificDate = LocalDate.of(2024, 10, 7);    //false case
-		//LocalDate specificDate = LocalDate.of(2020, 8, 12);    //false case
-
-		int numOfPeopleInRoom = 3;
+		//LocalDate specificDate = LocalDate.of(2020, 8, 12);    //false case - error date.
+		//LocalDate specificDate = LocalDate.of(2024, 10, 7);    //false case - start same date.
+		//LocalDate specificDate = LocalDate.of(2024, 10, 6);    //false case - start before and ends in range.
+		
 		int numOfNights = 2;
+		int numOfPeopleInRoom = 3;
 		boolean resultOfcheck = ordersDao.checkIfHotelAvailable(new ObjectId("62b2b88164bce809bbd6348a"),specificDate,numOfPeopleInRoom,numOfNights);
 		if(resultOfcheck)
 			System.out.println(resultOfcheck+"! you are welcome to order :)");
 		else
 			System.out.println(resultOfcheck+"! we dont have a avalabile room in this details, please check another!");
 	
+	}
+	
+	private static void getHotelsInCity(HotelsDAO hotelsDao) {
+		
+		String city="London";
+		//String city="Batumi";   //empty case.
+		
+		List<Hotel> hotelsByCity = hotelsDao.getHotelsByCity(city);
+		hotelsByCity.forEach(System.out::println);
+		if(hotelsByCity.isEmpty())
+			System.out.println("There is no any hotel in "+city);
+		
 	}
 }
